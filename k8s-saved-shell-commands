@@ -1,0 +1,231 @@
+craig@Ubuntu-Dev-22-04:~/k8s$ docker service status
+
+Usage:  docker service COMMAND
+
+Manage Swarm services
+
+Commands:
+  create      Create a new service
+  inspect     Display detailed information on one or more services
+  logs        Fetch the logs of a service or task
+  ls          List services
+  ps          List the tasks of one or more services
+  rm          Remove one or more services
+  rollback    Revert changes to a service's configuration
+  scale       Scale one or multiple replicated services
+  update      Update a service
+
+Run 'docker service COMMAND --help' for more information on a command.
+craig@Ubuntu-Dev-22-04:~/k8s$ sudo docker service status
+[sudo] password for craig:
+
+Usage:  docker service COMMAND
+
+Manage Swarm services
+
+Commands:
+  create      Create a new service
+  inspect     Display detailed information on one or more services
+  logs        Fetch the logs of a service or task
+  ls          List services
+  ps          List the tasks of one or more services
+  rm          Remove one or more services
+  rollback    Revert changes to a service's configuration
+  scale       Scale one or multiple replicated services
+  update      Update a service
+
+Run 'docker service COMMAND --help' for more information on a command.
+craig@Ubuntu-Dev-22-04:~/k8s$ sudo docker service start
+
+Usage:  docker service COMMAND
+
+Manage Swarm services
+
+Commands:
+  create      Create a new service
+  inspect     Display detailed information on one or more services
+  logs        Fetch the logs of a service or task
+  ls          List services
+  ps          List the tasks of one or more services
+  rm          Remove one or more services
+  rollback    Revert changes to a service's configuration
+  scale       Scale one or multiple replicated services
+  update      Update a service
+
+Run 'docker service COMMAND --help' for more information on a command.
+craig@Ubuntu-Dev-22-04:~/k8s$ sudo service docker status
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: active (running) since Sun 2023-02-05 23:16:37 CST; 3min 1s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 1195 (dockerd)
+      Tasks: 8
+     Memory: 93.6M
+        CPU: 1.391s
+     CGroup: /system.slice/docker.service
+             └─1195 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Feb 05 23:16:35 Ubuntu-Dev-22-04 dockerd[1195]: time="2023-02-05T23:16:35.342065070-06:00" level=info msg="[core] [Channel #4] Channel Connectivity change to READY" module=grpc
+Feb 05 23:16:35 Ubuntu-Dev-22-04 dockerd[1195]: time="2023-02-05T23:16:35.452248015-06:00" level=info msg="[graphdriver] using prior storage driver: overlay2"
+Feb 05 23:16:35 Ubuntu-Dev-22-04 dockerd[1195]: time="2023-02-05T23:16:35.638334342-06:00" level=info msg="Loading containers: start."
+Feb 05 23:16:36 Ubuntu-Dev-22-04 dockerd[1195]: time="2023-02-05T23:16:36.987759816-06:00" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Dae>
+Feb 05 23:16:37 Ubuntu-Dev-22-04 dockerd[1195]: time="2023-02-05T23:16:37.105147246-06:00" level=info msg="Loading containers: done."
+Feb 05 23:16:37 Ubuntu-Dev-22-04 dockerd[1195]: time="2023-02-05T23:16:37.418368882-06:00" level=info msg="Docker daemon" commit=d7573ab graphdriver=overlay2 version=23.0.0
+Feb 05 23:16:37 Ubuntu-Dev-22-04 dockerd[1195]: time="2023-02-05T23:16:37.422124782-06:00" level=info msg="Daemon has completed initialization"
+Feb 05 23:16:37 Ubuntu-Dev-22-04 dockerd[1195]: time="2023-02-05T23:16:37.686362356-06:00" level=info msg="[core] [Server #7] Server created" module=grpc
+Feb 05 23:16:37 Ubuntu-Dev-22-04 systemd[1]: Started Docker Application Container Engine.
+Feb 05 23:16:37 Ubuntu-Dev-22-04 dockerd[1195]: time="2023-02-05T23:16:37.817804144-06:00" level=info msg="API listen on /run/docker.sock"
+lines 1-22
+[1]+  Stopped                 sudo service docker status
+craig@Ubuntu-Dev-22-04:~/k8s$ minikube start
+W0205 23:19:50.850540    4219 main.go:291] Unable to resolve the current Docker CLI context "default": context "default" does not exist
+😄  minikube v1.29.0 on Ubuntu 22.04
+✨  Using the docker driver based on existing profile
+👍  Starting control plane node minikube in cluster minikube
+🚜  Pulling base image ...
+🔥  Creating docker container (CPUs=2, Memory=2200MB) ...
+
+🧯  Docker is nearly out of disk space, which may cause deployments to fail! (89% of capacity). You can pass '--force' to skip this check.
+💡  Suggestion:
+
+    Try one or more of the following to free up space on the device:
+
+    1. Run "docker system prune" to remove unused Docker data (optionally with "-a")
+    2. Increase the storage allocated to Docker for Desktop by clicking on:
+    Docker icon > Preferences > Resources > Disk Image Size
+    3. Run "minikube ssh -- docker system prune" if using the Docker container runtime
+🍿  Related issue: https://github.com/kubernetes/minikube/issues/9024
+
+🐳  Preparing Kubernetes v1.26.1 on Docker 20.10.23 ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔗  Configuring bridge CNI (Container Networking Interface) ...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+craig@Ubuntu-Dev-22-04:~/k8s$ cd k8s-web-to-nginx/
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ npm install node-fetch
+
+added 56 packages, and audited 57 packages in 6s
+
+5 packages are looking for funding
+  run `npm fund` for details
+
+3 high severity vulnerabilities
+
+To address all issues, run:
+  npm audit fix
+
+Run `npm audit` for details.
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ ls
+Dockerfile  index.mjs  node_modules  package.json  package-lock.json
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ docker build . -t cag07/k8s-web-to-nginx:latest
+[+] Building 20.4s (11/11) FINISHED
+ => [internal] load .dockerignore                                                                                                                                                0.1s
+ => => transferring context: 2B                                                                                                                                                  0.0s
+ => [internal] load build definition from Dockerfile                                                                                                                             0.1s
+ => => transferring dockerfile: 172B                                                                                                                                             0.0s
+ => [internal] load metadata for docker.io/library/node:alpine                                                                                                                  12.4s
+ => [auth] library/node:pull token for registry-1.docker.io                                                                                                                      0.0s
+ => [1/5] FROM docker.io/library/node:alpine@sha256:72b0f918ad76b5ef68c6243869fab5800d7393c1dcccf54ef00958c2abc8164a                                                             0.0s
+ => [internal] load build context                                                                                                                                                0.3s
+ => => transferring context: 9.60MB                                                                                                                                              0.3s
+ => CACHED [2/5] WORKDIR /app                                                                                                                                                    0.0s
+ => [3/5] COPY package.json package-lock.json ./                                                                                                                                 0.1s
+ => [4/5] RUN npm install                                                                                                                                                        6.8s
+ => [5/5] COPY . ./                                                                                                                                                              0.3s
+ => exporting to image                                                                                                                                                           0.2s
+ => => exporting layers                                                                                                                                                          0.2s
+ => => writing image sha256:46b420345ce7fc7131f1512dc85582b6f341d5f6d76eb95cbcd8c71cd340f878                                                                                     0.0s
+ => => naming to docker.io/cag07/k8s-web-to-nginx:latest                                                                                                                         0.0s
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ k get deploy
+No resources found in default namespace.
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ k get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   19m
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ cd ..
+craig@Ubuntu-Dev-22-04:~/k8s$ ls
+deployment.yaml  k8s-saved-shell-commands.md  k8s-web-hello  k8s-web-to-nginx  k8s-web-to-nginx.yaml  nginx.yaml  README.md  service.yaml
+craig@Ubuntu-Dev-22-04:~/k8s$ k apply -f k8s-web-to-nginx.yaml -f nginx.yaml
+service/k8s-web-to-nginx created
+deployment.apps/k8s-web-to-nginx created
+service/nginx created
+deployment.apps/nginx created
+craig@Ubuntu-Dev-22-04:~/k8s$ k get deploy
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+k8s-web-to-nginx   0/3     3            0           9s
+nginx              0/5     5            0           9s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get svc
+NAME               TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+k8s-web-to-nginx   LoadBalancer   10.100.74.57     <pending>     3333:30983/TCP   14s
+kubernetes         ClusterIP      10.96.0.1        <none>        443/TCP          20m
+nginx              ClusterIP      10.106.249.211   <none>        80/TCP           14s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                                READY   STATUS              RESTARTS   AGE
+k8s-web-to-nginx-67bd59b98b-gg8xs   1/1     Running             0          53s
+k8s-web-to-nginx-67bd59b98b-n2tj8   0/1     ContainerCreating   0          53s
+k8s-web-to-nginx-67bd59b98b-xjzhr   1/1     Running             0          53s
+nginx-7964d5c56d-67nfc              0/1     ContainerCreating   0          53s
+nginx-7964d5c56d-9f65x              0/1     ContainerCreating   0          53s
+nginx-7964d5c56d-hhv7n              0/1     ContainerCreating   0          53s
+nginx-7964d5c56d-n2gbn              0/1     ContainerCreating   0          53s
+nginx-7964d5c56d-rjqjf              0/1     Pending             0          53s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+k8s-web-to-nginx-67bd59b98b-gg8xs   1/1     Running   0          87s
+k8s-web-to-nginx-67bd59b98b-n2tj8   1/1     Running   0          87s
+k8s-web-to-nginx-67bd59b98b-xjzhr   1/1     Running   0          87s
+nginx-7964d5c56d-67nfc              1/1     Running   0          87s
+nginx-7964d5c56d-9f65x              1/1     Running   0          87s
+nginx-7964d5c56d-hhv7n              1/1     Running   0          87s
+nginx-7964d5c56d-n2gbn              1/1     Running   0          87s
+nginx-7964d5c56d-rjqjf              0/1     Pending   0          87s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get svc
+NAME               TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+k8s-web-to-nginx   LoadBalancer   10.100.74.57     <pending>     3333:30983/TCP   3m49s
+kubernetes         ClusterIP      10.96.0.1        <none>        443/TCP          24m
+nginx              ClusterIP      10.106.249.211   <none>        80/TCP           3m49s
+craig@Ubuntu-Dev-22-04:~/k8s$ k exec k8s-web-to-nginx-67bd59b98b-gg8xs --nslookup nginx
+error: unknown flag: --nslookup
+See 'kubectl exec --help' for usage.
+craig@Ubuntu-Dev-22-04:~/k8s$ k exec k8s-web-to-nginx-67bd59b98b-gg8xs --dig nginx
+error: unknown flag: --dig
+See 'kubectl exec --help' for usage.
+craig@Ubuntu-Dev-22-04:~/k8s$ k exec k8s-web-to-nginx-67bd59b98b-gg8xs -- nslookup nginx
+Server:         10.96.0.10
+Address:        10.96.0.10:53
+
+Name:   nginx.default.svc.cluster.local
+Address: 10.106.249.211
+
+** server can't find nginx.cluster.local: NXDOMAIN
+
+** server can't find nginx.svc.cluster.local: NXDOMAIN
+
+** server can't find nginx.svc.cluster.local: NXDOMAIN
+
+** server can't find nginx.cluster.local: NXDOMAIN
+
+*** Can't find nginx.default.svc.cluster.local: No answer
+
+** server can't find nginx.localdomain: NXDOMAIN
+
+*** Can't find nginx.localdomain: No answer
+
+command terminated with exit code 1
+craig@Ubuntu-Dev-22-04:~/k8s$ docker ps
+CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS          PORTS                                                                                                                                  NAMES
+ebc531fe845f   gcr.io/k8s-minikube/kicbase:v0.0.37   "/usr/local/bin/entr…"   36 minutes ago   Up 35 minutes   127.0.0.1:32772->22/tcp, 127.0.0.1:32771->2376/tcp, 127.0.0.1:32770->5000/tcp, 127.0.0.1:32769->8443/tcp, 127.0.0.1:32768->32443/tcp   minikube
+craig@Ubuntu-Dev-22-04:~/k8s$ minikube status
+W0205 23:56:18.008251   38258 main.go:291] Unable to resolve the current Docker CLI context "default": context "default" does not exist
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+craig@Ubuntu-Dev-22-04:~/k8s$

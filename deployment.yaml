@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: k8s-web-hello
-        image: bstashchuk/k8s-web-hello
+        image: cag07/k8s-web-hello
         resources:
           limits:
             memory: "128Mi"
