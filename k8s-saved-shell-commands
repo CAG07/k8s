@@ -229,3 +229,227 @@ apiserver: Running
 kubeconfig: Configured
 
 craig@Ubuntu-Dev-22-04:~/k8s$
+
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+k8s-web-to-nginx-67bd59b98b-gg8xs   1/1     Running   0          27m
+k8s-web-to-nginx-67bd59b98b-n2tj8   1/1     Running   0          27m
+k8s-web-to-nginx-67bd59b98b-xjzhr   1/1     Running   0          27m
+nginx-7964d5c56d-67nfc              1/1     Running   0          27m
+nginx-7964d5c56d-9f65x              1/1     Running   0          27m
+nginx-7964d5c56d-hhv7n              1/1     Running   0          27m
+nginx-7964d5c56d-n2gbn              1/1     Running   0          27m
+nginx-7964d5c56d-rjqjf              0/1     Pending   0          27m
+craig@Ubuntu-Dev-22-04:~/k8s$ k delete -f deployment.yaml -f service.yaml
+Error from server (NotFound): error when deleting "deployment.yaml": deployments.apps "k8s-web-hello" not found
+Error from server (NotFound): error when deleting "service.yaml": services "k8s-web-hello" not found
+craig@Ubuntu-Dev-22-04:~/k8s$ ls
+deployment.yaml  k8s-saved-shell-commands  k8s-web-hello  k8s-web-to-nginx  k8s-web-to-nginx.yaml  nginx.yaml  README.md  service.yaml
+craig@Ubuntu-Dev-22-04:~/k8s$ k delete -f k8s-web-to-nginx.yaml -f nginx.yaml
+service "k8s-web-to-nginx" deleted
+deployment.apps "k8s-web-to-nginx" deleted
+service "nginx" deleted
+deployment.apps "nginx" deleted
+craig@Ubuntu-Dev-22-04:~/k8s$ k get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   53m
+craig@Ubuntu-Dev-22-04:~/k8s$ k apply -f k8s-web-to-nginx.yaml -f nginx.yaml
+service/k8s-web-to-nginx created
+deployment.apps/k8s-web-to-nginx created
+service/nginx created
+deployment.apps/nginx created
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                                READY   STATUS              RESTARTS   AGE
+k8s-web-to-nginx-67bd59b98b-6lq9n   0/1     ContainerCreating   0          5s
+k8s-web-to-nginx-67bd59b98b-vfwzk   0/1     ContainerCreating   0          5s
+k8s-web-to-nginx-67bd59b98b-wlfjc   0/1     ContainerCreating   0          5s
+nginx-7964d5c56d-7v29n              0/1     ContainerCreating   0          5s
+nginx-7964d5c56d-hmxc6              0/1     ContainerCreating   0          5s
+nginx-7964d5c56d-qpdcr              0/1     ContainerCreating   0          5s
+nginx-7964d5c56d-xjjbc              0/1     ContainerCreating   0          5s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get svc
+NAME               TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+k8s-web-to-nginx   LoadBalancer   10.106.15.153   <pending>     3333:32076/TCP   10s
+kubernetes         ClusterIP      10.96.0.1       <none>        443/TCP          54m
+nginx              ClusterIP      10.103.227.84   <none>        80/TCP           10s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+k8s-web-to-nginx-67bd59b98b-6lq9n   1/1     Running   0          50s
+k8s-web-to-nginx-67bd59b98b-vfwzk   1/1     Running   0          50s
+k8s-web-to-nginx-67bd59b98b-wlfjc   1/1     Running   0          50s
+nginx-7964d5c56d-7v29n              1/1     Running   0          50s
+nginx-7964d5c56d-hmxc6              1/1     Running   0          50s
+nginx-7964d5c56d-qpdcr              1/1     Running   0          50s
+nginx-7964d5c56d-xjjbc              1/1     Running   0          50s
+craig@Ubuntu-Dev-22-04:~/k8s$ k delete -f k8s-web-to-nginx.yaml -f nginx.yaml
+service "k8s-web-to-nginx" deleted
+deployment.apps "k8s-web-to-nginx" deleted
+service "nginx" deleted
+deployment.apps "nginx" deleted
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+No resources found in default namespace.
+craig@Ubuntu-Dev-22-04:~/k8s$ k apply -f k8s-web-to-nginx.yaml -f nginx.yaml
+service/k8s-web-to-nginx created
+deployment.apps/k8s-web-to-nginx created
+service/nginx created
+deployment.apps/nginx created
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                               READY   STATUS              RESTARTS   AGE
+k8s-web-to-nginx-5cf8f5d9d-gf8mx   0/1     ErrImagePull        0          4s
+k8s-web-to-nginx-5cf8f5d9d-p577d   0/1     ContainerCreating   0          4s
+k8s-web-to-nginx-5cf8f5d9d-xmhfc   0/1     ContainerCreating   0          4s
+nginx-7964d5c56d-2srtm             0/1     ContainerCreating   0          4s
+nginx-7964d5c56d-h8d7r             0/1     ContainerCreating   0          4s
+nginx-7964d5c56d-lvxlh             0/1     ContainerCreating   0          4s
+nginx-7964d5c56d-s2ddw             0/1     ContainerCreating   0          4s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get svc
+NAME               TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+k8s-web-to-nginx   LoadBalancer   10.96.237.108   <pending>     3333:31065/TCP   9s
+kubernetes         ClusterIP      10.96.0.1       <none>        443/TCP          57m
+nginx              ClusterIP      10.106.78.247   <none>        80/TCP           8s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                               READY   STATUS         RESTARTS   AGE
+k8s-web-to-nginx-5cf8f5d9d-gf8mx   0/1     ErrImagePull   0          71s
+k8s-web-to-nginx-5cf8f5d9d-p577d   0/1     ErrImagePull   0          71s
+k8s-web-to-nginx-5cf8f5d9d-xmhfc   0/1     ErrImagePull   0          71s
+nginx-7964d5c56d-2srtm             1/1     Running        0          71s
+nginx-7964d5c56d-h8d7r             1/1     Running        0          71s
+nginx-7964d5c56d-lvxlh             1/1     Running        0          71s
+nginx-7964d5c56d-s2ddw             1/1     Running        0          71s
+craig@Ubuntu-Dev-22-04:~/k8s$ docker build . -t cag07/k8s-web-to-nginx
+[+] Building 0.2s (2/2) FINISHED
+ => [internal] load .dockerignore                                                                                                                                          0.1s
+ => => transferring context: 2B                                                                                                                                            0.0s
+ => [internal] load build definition from Dockerfile                                                                                                                       0.1s
+ => => transferring dockerfile: 2B                                                                                                                                         0.0s
+ERROR: failed to solve: failed to read dockerfile: open /var/lib/docker/tmp/buildkit-mount2934937037/Dockerfile: no such file or directory
+craig@Ubuntu-Dev-22-04:~/k8s$ cd k8s-web-to-nginx/
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ docker build . -t cag07/k8s-web-to-nginx
+[+] Building 5.5s (11/11) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                                                       0.1s
+ => => transferring dockerfile: 172B                                                                                                                                       0.0s
+ => [internal] load .dockerignore                                                                                                                                          0.0s
+ => => transferring context: 2B                                                                                                                                            0.0s
+ => [internal] load metadata for docker.io/library/node:alpine                                                                                                             5.3s
+ => [auth] library/node:pull token for registry-1.docker.io                                                                                                                0.0s
+ => [1/5] FROM docker.io/library/node:alpine@sha256:72b0f918ad76b5ef68c6243869fab5800d7393c1dcccf54ef00958c2abc8164a                                                       0.0s
+ => [internal] load build context                                                                                                                                          0.1s
+ => => transferring context: 31.82kB                                                                                                                                       0.1s
+ => CACHED [2/5] WORKDIR /app                                                                                                                                              0.0s
+ => CACHED [3/5] COPY package.json package-lock.json ./                                                                                                                    0.0s
+ => CACHED [4/5] RUN npm install                                                                                                                                           0.0s
+ => CACHED [5/5] COPY . ./                                                                                                                                                 0.0s
+ => exporting to image                                                                                                                                                     0.0s
+ => => exporting layers                                                                                                                                                    0.0s
+ => => writing image sha256:46b420345ce7fc7131f1512dc85582b6f341d5f6d76eb95cbcd8c71cd340f878                                                                               0.0s
+ => => naming to docker.io/cag07/k8s-web-to-nginx                                                                                                                          0.0s
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ cd ..
+craig@Ubuntu-Dev-22-04:~/k8s$ k delete -f k8s-web-to-nginx.yaml -f nginx.yaml
+service "k8s-web-to-nginx" deleted
+deployment.apps "k8s-web-to-nginx" deleted
+service "nginx" deleted
+deployment.apps "nginx" deleted
+craig@Ubuntu-Dev-22-04:~/k8s$ k apply -f k8s-web-to-nginx.yaml -f nginx.yaml
+service/k8s-web-to-nginx created
+deployment.apps/k8s-web-to-nginx created
+service/nginx created
+deployment.apps/nginx created
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                               READY   STATUS              RESTARTS   AGE
+k8s-web-to-nginx-5cf8f5d9d-djdrq   0/1     ContainerCreating   0          7s
+k8s-web-to-nginx-5cf8f5d9d-xr576   0/1     ImagePullBackOff    0          7s
+k8s-web-to-nginx-5cf8f5d9d-zsp5f   0/1     ContainerCreating   0          7s
+nginx-7964d5c56d-4rdl6             0/1     ContainerCreating   0          7s
+nginx-7964d5c56d-99mr9             1/1     Running             0          7s
+nginx-7964d5c56d-l62kj             1/1     Running             0          7s
+nginx-7964d5c56d-vtg9b             0/1     ContainerCreating   0          7s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get svc
+NAME               TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
+k8s-web-to-nginx   LoadBalancer   10.108.253.204   <pending>     3333:31598/TCP   15s
+kubernetes         ClusterIP      10.96.0.1        <none>        443/TCP          62m
+nginx              ClusterIP      10.109.72.166    <none>        80/TCP           15s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                               READY   STATUS             RESTARTS   AGE
+k8s-web-to-nginx-5cf8f5d9d-djdrq   0/1     ImagePullBackOff   0          23s
+k8s-web-to-nginx-5cf8f5d9d-xr576   0/1     ImagePullBackOff   0          23s
+k8s-web-to-nginx-5cf8f5d9d-zsp5f   0/1     ErrImagePull       0          23s
+nginx-7964d5c56d-4rdl6             1/1     Running            0          23s
+nginx-7964d5c56d-99mr9             1/1     Running            0          23s
+nginx-7964d5c56d-l62kj             1/1     Running            0          23s
+nginx-7964d5c56d-vtg9b             1/1     Running            0          23s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                               READY   STATUS             RESTARTS   AGE
+k8s-web-to-nginx-5cf8f5d9d-djdrq   0/1     ImagePullBackOff   0          32s
+k8s-web-to-nginx-5cf8f5d9d-xr576   0/1     ErrImagePull       0          32s
+k8s-web-to-nginx-5cf8f5d9d-zsp5f   0/1     ImagePullBackOff   0          32s
+nginx-7964d5c56d-4rdl6             1/1     Running            0          32s
+nginx-7964d5c56d-99mr9             1/1     Running            0          32s
+nginx-7964d5c56d-l62kj             1/1     Running            0          32s
+nginx-7964d5c56d-vtg9b             1/1     Running            0          32s
+craig@Ubuntu-Dev-22-04:~/k8s$ cd k8s-web-to-nginx/
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ ls
+Dockerfile  index.mjs  node_modules  package.json  package-lock.json
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ docker build . -t cag07/k8s-web-to-nginx
+[+] Building 2.1s (10/10) FINISHED
+ => [internal] load .dockerignore                                                                                                                                          0.0s
+ => => transferring context: 2B                                                                                                                                            0.0s
+ => [internal] load build definition from Dockerfile                                                                                                                       0.0s
+ => => transferring dockerfile: 172B                                                                                                                                       0.0s
+ => [internal] load metadata for docker.io/library/node:alpine                                                                                                             1.9s
+ => [1/5] FROM docker.io/library/node:alpine@sha256:72b0f918ad76b5ef68c6243869fab5800d7393c1dcccf54ef00958c2abc8164a                                                       0.0s
+ => [internal] load build context                                                                                                                                          0.1s
+ => => transferring context: 31.82kB                                                                                                                                       0.1s
+ => CACHED [2/5] WORKDIR /app                                                                                                                                              0.0s
+ => CACHED [3/5] COPY package.json package-lock.json ./                                                                                                                    0.0s
+ => CACHED [4/5] RUN npm install                                                                                                                                           0.0s
+ => CACHED [5/5] COPY . ./                                                                                                                                                 0.0s
+ => exporting to image                                                                                                                                                     0.0s
+ => => exporting layers                                                                                                                                                    0.0s
+ => => writing image sha256:46b420345ce7fc7131f1512dc85582b6f341d5f6d76eb95cbcd8c71cd340f878                                                                               0.0s
+ => => naming to docker.io/cag07/k8s-web-to-nginx                                                                                                                          0.0s
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ docker push
+"docker push" requires exactly 1 argument.
+See 'docker push --help'.
+
+Usage:  docker push [OPTIONS] NAME[:TAG]
+
+Upload an image to a registry
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ ls
+Dockerfile  index.mjs  node_modules  package.json  package-lock.json
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ docker push cag07/k8s-web-to-nginx
+Using default tag: latest
+The push refers to repository [docker.io/cag07/k8s-web-to-nginx]
+144bb7b16656: Pushed
+9cd49c636fcd: Pushed
+f09a9b8cb072: Pushed
+31d2b919385b: Mounted from cag07/k8s-web-hello
+8a8c15594fd5: Mounted from cag07/k8s-web-hello
+02bac03fb138: Mounted from cag07/k8s-web-hello
+d8479a663cee: Mounted from cag07/k8s-web-hello
+8e012198eea1: Mounted from cag07/k8s-web-hello
+latest: digest: sha256:b9bf7fb1a2b6b56667cb5e1e4141c1a53fb9e03ff45c873083fee8c5970f45ba size: 1994
+craig@Ubuntu-Dev-22-04:~/k8s/k8s-web-to-nginx$ cd ..
+craig@Ubuntu-Dev-22-04:~/k8s$ k delete -f k8s-web-to-nginx.yaml -f nginx.yaml
+service "k8s-web-to-nginx" deleted
+deployment.apps "k8s-web-to-nginx" deleted
+service "nginx" deleted
+deployment.apps "nginx" deleted
+craig@Ubuntu-Dev-22-04:~/k8s$ k apply -f k8s-web-to-nginx.yaml -f nginx.yaml
+service/k8s-web-to-nginx created
+deployment.apps/k8s-web-to-nginx created
+service/nginx created
+deployment.apps/nginx created
+craig@Ubuntu-Dev-22-04:~/k8s$ k get pods
+NAME                               READY   STATUS              RESTARTS   AGE
+k8s-web-to-nginx-5cf8f5d9d-cwgvd   0/1     ContainerCreating   0          10s
+k8s-web-to-nginx-5cf8f5d9d-lm2xl   0/1     ContainerCreating   0          10s
+k8s-web-to-nginx-5cf8f5d9d-rlknf   0/1     ContainerCreating   0          10s
+nginx-7964d5c56d-2h6m2             0/1     ContainerCreating   0          9s
+nginx-7964d5c56d-5shd9             0/1     ContainerCreating   0          9s
+nginx-7964d5c56d-74bmf             0/1     ContainerCreating   0          10s
+nginx-7964d5c56d-jzprb             0/1     ContainerCreating   0          9s
+craig@Ubuntu-Dev-22-04:~/k8s$ k get svc
+NAME               TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
+k8s-web-to-nginx   LoadBalancer   10.100.16.39   <pending>     3333:31281/TCP   28s
+kubernetes         ClusterIP      10.96.0.1      <none>        443/TCP          67m
+nginx              ClusterIP      10.102.55.65   <none>        80/TCP           28s

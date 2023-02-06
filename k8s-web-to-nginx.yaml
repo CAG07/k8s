@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: k8s-web-to-nginx
-        image: bstashchuk/k8s-web-to-nginx
+        image: cag07/k8s-web-to-nginx
         resources:
           limits:
             memory: "128Mi"
